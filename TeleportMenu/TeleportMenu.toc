@@ -1,4 +1,4 @@
-## Interface: 11200
+## Interface: 20400
 ## Title: TeleportMenu
 ## Notes: Interface francaise pour .go taxinode et .tele
 ## Author: OpenAI pour Loic
@@ -8,5 +8,5 @@
 
 Data.lua
 Core.lua
-## FuBar.lua
+FuBar.lua
 Bindings.xml
