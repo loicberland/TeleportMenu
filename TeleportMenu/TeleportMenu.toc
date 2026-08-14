@@ -1,4 +1,4 @@
-## Interface: 20400
+## Interface: 30300
 ## Title: TeleportMenu
 ## Notes: Interface francaise pour .go taxinode et .tele
 ## Author: OpenAI pour Loic
