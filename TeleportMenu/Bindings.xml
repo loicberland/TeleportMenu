@@ -1,0 +1,6 @@
+<Bindings>
+	<Binding name="TELEPORTMENU_TOGGLE" header="TELEPORTMENU">
+		TeleportMenu_Toggle();
+	</Binding>
+</Bindings>
+
