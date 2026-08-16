@@ -400,6 +400,7 @@ function TeleportMenu_Execute()
 	if success then
 		db.query = searchEdit:GetText()
 		SetStatus("Commande envoyée : " .. command, 0.35, 1, 0.45)
+		frame:Hide()
 	else
 		SetStatus("Impossible d'envoyer la commande au serveur.", 1, 0.35, 0.35)
 	end
