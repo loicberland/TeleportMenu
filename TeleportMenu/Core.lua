@@ -33,7 +33,7 @@ local REGION_LABELS = {
 local TYPE_LABELS = {
 	all = "Tous",
 	fly = "Fly (taxinode)",
-	city = "Ville (.tele)",
+	city = "Zone (.tele)",
 }
 
 local FACTION_LABELS = {
@@ -47,7 +47,7 @@ local FACTION_LABELS = {
 local TYPE_CHOICES = {
 	{ value = "all", label = "Tous" },
 	{ value = "fly", label = "Fly (taxinode)" },
-	{ value = "city", label = "Ville (.tele)" },
+	{ value = "city", label = "Zone (.tele)" },
 }
 
 local FACTION_CHOICES = {
@@ -223,7 +223,7 @@ local function FormatEntry(entry)
 	if entry.kind == "fly" then
 		prefix = "|cff58a6ff[Fly " .. tostring(entry.id) .. "]|r"
 	else
-		prefix = "|cffc084fc[Ville]|r"
+		prefix = "|cffc084fc[Zone]|r"
 	end
 	return prefix .. "  " .. entry.name .. "  |cff8f9bb3— " .. (REGION_LABELS[entry.region] or "") .. " · " .. (entry.faction or "") .. "|r"
 end
@@ -347,7 +347,7 @@ end
 local function BuildCommand()
 	local raw = Trim(searchEdit and searchEdit:GetText() or "")
 	if raw == "" then
-		return nil, "Renseigne un fly ou une ville."
+		return nil, "Renseigne un fly ou une zone."
 	end
 
 	if state.selected and raw == state.selected.name then
@@ -556,7 +556,7 @@ local function CreateMainFrame()
 
 	local destinationLabel = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 	destinationLabel:SetPoint("TOPLEFT", frame, "TOPLEFT", 22, -105)
-	destinationLabel:SetText("Fly ou ville")
+	destinationLabel:SetText("Fly ou zone")
 
 	searchEdit = CreateFrame("EditBox", "TeleportMenuSearchEdit", frame, "InputBoxTemplate")
 	searchEdit:SetWidth(487)
