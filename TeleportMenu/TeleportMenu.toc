@@ -8,5 +8,4 @@
 
 Data.lua
 Core.lua
-FuBar.lua
 Bindings.xml
