@@ -1,5 +1,5 @@
 -- Donnees partagees par les clients 1.12, 2.4.3 et 3.3.5.
--- Les noms sont affiches en francais. Les valeurs "command" des villes
+-- Les noms sont affiches en francais. Les valeurs "command" des zones
 -- restent les cles anglaises utilisees par la table game_tele du serveur.
 
 TeleportMenuData = TeleportMenuData or {}

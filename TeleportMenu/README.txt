@@ -18,7 +18,7 @@ Ouverture
 Utilisation
 -----------
 - Type "Fly" : envoie .go taxinode ID.
-- Type "Ville" : envoie .tele NomTechnique.
+- Type "Zone" : envoie .tele NomTechnique.
 - Type "Tous" : un nombre saisi manuellement est considere comme un
   ID de fly ; un texte est considere comme un nom .tele.
 - Tu peux aussi saisir directement une commande complete :
