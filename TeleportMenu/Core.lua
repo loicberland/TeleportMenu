@@ -6,7 +6,10 @@ TeleportMenu = TeleportMenu or {}
 TeleportMenuDB = TeleportMenuDB or {}
 
 local addon = TeleportMenu
-local db = TeleportMenuDB
+-- Sur les anciens clients, les SavedVariables ne sont garanties disponibles
+-- qu'apres VARIABLES_LOADED. La reference est donc affectee pendant
+-- l'initialisation afin de toujours utiliser la table restauree par le jeu.
+local db
 local data = TeleportMenuData or {}
 
 local clientVersion = "1.12"
@@ -71,24 +74,31 @@ if addon.clientLevel >= 3 then
 	table.insert(REGION_CHOICES, { value = "northrend", label = "Norfendre" })
 end
 
-if not TYPE_LABELS[db.typeFilter] then db.typeFilter = "all" end
-if not REGION_LABELS[db.regionFilter] then db.regionFilter = "all" end
-if addon.clientLevel < 2 and db.regionFilter == "outland" then db.regionFilter = "all" end
-if addon.clientLevel < 3 and db.regionFilter == "northrend" then db.regionFilter = "all" end
-if not FACTION_LABELS[db.factionFilter] then db.factionFilter = "all" end
-if db.resultsOpen == nil then db.resultsOpen = true end
-if db.minimapAngle == nil then db.minimapAngle = 225 end
-
 local state = {
 	filtered = {},
 	offset = 0,
 	rowCount = 11,
 	selected = nil,
 	suspendInput = false,
-	resultsOpen = db.resultsOpen,
+	resultsOpen = true,
 	activeMenu = nil,
 	updatingSlider = false,
 }
+
+local function InitializeDatabase()
+	TeleportMenuDB = TeleportMenuDB or {}
+	db = TeleportMenuDB
+
+	if not TYPE_LABELS[db.typeFilter] then db.typeFilter = "all" end
+	if not REGION_LABELS[db.regionFilter] then db.regionFilter = "all" end
+	if addon.clientLevel < 2 and db.regionFilter == "outland" then db.regionFilter = "all" end
+	if addon.clientLevel < 3 and db.regionFilter == "northrend" then db.regionFilter = "all" end
+	if not FACTION_LABELS[db.factionFilter] then db.factionFilter = "all" end
+	if db.resultsOpen == nil then db.resultsOpen = true end
+	if db.minimapAngle == nil then db.minimapAngle = 225 end
+
+	state.resultsOpen = db.resultsOpen
+end
 
 local frame
 local resultsPanel
@@ -874,5 +884,15 @@ SlashCmdList["TELEPORTMENU"] = function(message)
 	RebuildFiltered()
 end
 
-CreateMainFrame()
-CreateMinimapButton()
+local loader = CreateFrame("Frame")
+loader:RegisterEvent("VARIABLES_LOADED")
+loader:SetScript("OnEvent", function(self, eventName)
+	self = self or this
+	eventName = eventName or event
+	if eventName ~= "VARIABLES_LOADED" then return end
+
+	self:UnregisterEvent("VARIABLES_LOADED")
+	InitializeDatabase()
+	CreateMainFrame()
+	CreateMinimapButton()
+end)

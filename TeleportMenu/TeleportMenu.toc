@@ -2,7 +2,7 @@
 ## Title: TeleportMenu
 ## Notes: Interface francaise pour .go taxinode et .tele
 ## Author: OpenAI pour Loic
-## Version: 1.0.1
+## Version: 1.0.2
 ## SavedVariables: TeleportMenuDB
 ## OptionalDeps: FuBar, Ace2
 
