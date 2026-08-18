@@ -514,9 +514,18 @@ local function CreateMainFrame()
 	end)
 	frame:SetScript("OnShow", function(self)
 		self = self or this
+		-- Chaque ouverture repart d'une saisie vide, sans modifier l'etat
+		-- d'ouverture de la liste des resultats.
+		SaveSelected(nil)
+		state.suspendInput = true
+		searchEdit:SetText("")
+		state.suspendInput = false
+		db.query = ""
 		if self.Raise then self:Raise() end
 		RefreshFilterButtons()
 		RebuildFiltered()
+		-- Place le curseur dans le champ pour pouvoir saisir immediatement.
+		searchEdit:SetFocus()
 	end)
 	frame:SetScript("OnHide", function()
 		CloseActiveMenu()
